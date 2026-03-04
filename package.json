@@ -1,0 +1,17 @@
+{
+  "name": "spirituality_BE",
+  "version": "1.0.0",
+  "description": "Backend services for Spirituality project",
+  "private": true,
+  "scripts": {
+    "dev": "echo \"No dev server configured\"",
+    "build": "echo \"No build script\""
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "spirituality"
+  ],
+  "author": "",
+  "license": "MIT"
+}
