@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "spiritual_library")
+@Table(name = "`spiritual_library`")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,7 +16,7 @@ public class Library {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "category", length = 50, nullable = false)
+    @Column(name = "`category`", length = 50, nullable = false)
     private String category;
 
     @Column(name = "item_id", length = 50, nullable = false)
