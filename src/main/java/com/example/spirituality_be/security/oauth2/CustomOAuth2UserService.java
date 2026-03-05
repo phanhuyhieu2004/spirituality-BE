@@ -49,14 +49,25 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         return UserPrincipal.create(account, oAuth2User.getAttributes());
     }
 
+    @org.springframework.transaction.annotation.Transactional
     private Accounts registerNewAccount(OAuth2User oAuth2User) {
+        String email = oAuth2User.getAttribute("email");
+        System.out.println("Đang đăng ký tài khoản mới từ Google: " + email);
         Accounts account = new Accounts();
-        account.setEmail(oAuth2User.getAttribute("email"));
-        account.setPassword_hash(null);
+        account.setEmail(email);
+        // Đặt một giá trị mặc định tránh lỗi NOT NULL nếu có trong database
+        account.setPassword_hash("OAUTH2_USER");
         account.setRole(Accounts.Role.user);
         account.setStatus(Accounts.Status.active);
         account.setLast_login_at(java.time.LocalDateTime.now());
-        return accountsRepository.save(account);
+        try {
+            Accounts savedAccount = accountsRepository.save(account);
+            System.out.println("Đăng ký thành công tài khoản ID: " + savedAccount.getId());
+            return savedAccount;
+        } catch (Exception e) {
+            System.err.println("Lỗi khi lưu tài khoản vào Database: " + e.getMessage());
+            throw e;
+        }
     }
 
     private Accounts updateExistingAccount(Accounts existingAccount, OAuth2User oAuth2User) {

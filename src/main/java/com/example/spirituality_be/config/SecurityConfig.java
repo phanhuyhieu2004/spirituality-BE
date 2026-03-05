@@ -2,6 +2,7 @@ package com.example.spirituality_be.config;
 
 import com.example.spirituality_be.security.JwtAuthenticationFilter;
 import com.example.spirituality_be.security.oauth2.CustomOAuth2UserService;
+import com.example.spirituality_be.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.example.spirituality_be.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -34,6 +35,9 @@ public class SecurityConfig {
 
     @Autowired
     private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+
+    @Autowired
+    private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -90,6 +94,7 @@ public class SecurityConfig {
                 .redirectionEndpoint(redir -> redir.baseUri("/login/oauth2/code/*"))
                 .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
                 .successHandler(oAuth2AuthenticationSuccessHandler)
+                .failureHandler(oAuth2AuthenticationFailureHandler)
             );
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
