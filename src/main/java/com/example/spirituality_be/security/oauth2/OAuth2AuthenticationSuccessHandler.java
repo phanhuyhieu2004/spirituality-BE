@@ -18,6 +18,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     @Autowired
     private JwtTokenProvider tokenProvider;
 
+    @org.springframework.beans.factory.annotation.Value("${app.frontend.url:http://localhost:3000}")
+    private String frontendUrl;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         String targetUrl = determineTargetUrl(request, response, authentication);
@@ -33,7 +36,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         com.example.spirituality_be.security.UserPrincipal userPrincipal = (com.example.spirituality_be.security.UserPrincipal) authentication.getPrincipal();
         String token = tokenProvider.generateTokenFromUsername(userPrincipal.getEmail());
 
-        return UriComponentsBuilder.fromUriString("http://localhost:3000/oauth2/redirect")
+        return UriComponentsBuilder.fromUriString(frontendUrl + "/oauth2/redirect")
                 .queryParam("token", token)
                 .build().toUriString();
     }
