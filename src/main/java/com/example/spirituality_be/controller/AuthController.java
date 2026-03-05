@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"}, allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -37,6 +37,9 @@ public class AuthController {
 
     @Autowired
     com.example.spirituality_be.service.EmailService emailService;
+
+    @org.springframework.beans.factory.annotation.Value("${app.frontend.url:http://localhost:3000}")
+    private String frontendUrl;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
@@ -101,7 +104,7 @@ public class AuthController {
 
         String resetToken = tokenProvider.generateResetToken(email);
 
-        String resetLink = "http://localhost:3000/reset-password?token=" + resetToken;
+        String resetLink = frontendUrl + "/reset-password?token=" + resetToken;
         try {
             emailService.sendResetPasswordEmail(email, resetLink);
             System.out.println("====== ĐÃ GỬI EMAIL THẬT ĐẾN: " + email + " ======");
