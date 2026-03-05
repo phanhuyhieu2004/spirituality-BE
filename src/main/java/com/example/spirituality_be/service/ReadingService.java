@@ -103,7 +103,7 @@ public class ReadingService {
     }
 
     private Library drawWeighted(DailyEnergy energy, String category) {
-        List<Library> items = libraryRepository.findByCategory(category);
+        List<Library> items = libraryRepository.findByItemCategory(category);
         if (items.isEmpty()) return null;
 
         int balance = (energy != null) ? energy.getEmotionalBalance() : 50;
