@@ -17,8 +17,11 @@ public class DataSeedService implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-
-
+        if (libraryRepository.count() == 0) {
+            seedLibrary();
+        } else {
+            System.out.println("Dữ liệu thư viện đã tồn tại, bỏ qua bước seeding.");
+        }
     }
 
     private void seedLibrary() {
