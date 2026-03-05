@@ -7,10 +7,10 @@ import java.util.List;
 
 @Repository
 public interface LibraryRepository extends JpaRepository<Library, Integer> {
-    List<Library> findByCategory(String category);
+    List<Library> findByItemCategory(String itemCategory);
 
     @org.springframework.data.jpa.repository.Query("SELECT l FROM Library l WHERE " +
-            "(:category IS NULL OR l.category = :category) AND " +
+            "(:category IS NULL OR l.itemCategory = :category) AND " +
             "(:keyword IS NULL OR LOWER(l.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(l.description) LIKE LOWER(CONCAT('%', :keyword, '%')))")
     org.springframework.data.domain.Page<Library> search(
             @org.springframework.data.repository.query.Param("category") String category,
