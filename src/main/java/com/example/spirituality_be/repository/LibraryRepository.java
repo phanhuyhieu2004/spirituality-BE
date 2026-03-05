@@ -7,13 +7,13 @@ import java.util.List;
 
 @Repository
 public interface LibraryRepository extends JpaRepository<Library, Integer> {
-    List<Library> findByType(String type);
+    List<Library> findByCategory(String category);
 
     @org.springframework.data.jpa.repository.Query("SELECT l FROM Library l WHERE " +
-            "(:type IS NULL OR l.type = :type) AND " +
+            "(:category IS NULL OR l.category = :category) AND " +
             "(:keyword IS NULL OR LOWER(l.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(l.description) LIKE LOWER(CONCAT('%', :keyword, '%')))")
     org.springframework.data.domain.Page<Library> search(
-            @org.springframework.data.repository.query.Param("type") String type,
+            @org.springframework.data.repository.query.Param("category") String category,
             @org.springframework.data.repository.query.Param("keyword") String keyword,
             org.springframework.data.domain.Pageable pageable);
 }

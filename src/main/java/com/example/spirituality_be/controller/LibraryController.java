@@ -27,9 +27,9 @@ public class LibraryController {
 
 
         String sanitizedKeyword = (keyword != null && !keyword.trim().isEmpty()) ? keyword.trim() : null;
-        String filterType = (type != null && !type.trim().isEmpty()) ? type.trim() : null;
+        String filterCategory = (type != null && !type.trim().isEmpty()) ? type.trim() : null;
 
-        return ResponseEntity.ok(libraryRepository.search(filterType, sanitizedKeyword, pageable));
+        return ResponseEntity.ok(libraryRepository.search(filterCategory, sanitizedKeyword, pageable));
     }
 
     @GetMapping("/{id}")

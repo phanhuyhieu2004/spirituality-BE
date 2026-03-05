@@ -72,7 +72,7 @@ public class DataSeedService implements CommandLineRunner {
 
     private Library createTarot(int id, String name, String upright, String reversed, String correlation) {
         Library l = new Library();
-        l.setType("tarot_card");
+        l.setCategory("tarot_card");
         l.setItemId("tarot_" + String.format("%02d", id));
         l.setName(name);
         l.setMeaningUpright(upright);
@@ -84,7 +84,7 @@ public class DataSeedService implements CommandLineRunner {
 
     private Library createIching(int id, String name, String desc, String correlation) {
         Library l = new Library();
-        l.setType("iching_hexagram");
+        l.setCategory("iching_hexagram");
         l.setItemId("hex_" + String.format("%02d", id));
         l.setName(name);
         l.setDescription(desc);
